@@ -22,11 +22,14 @@ class LinkedList:
             iteration.next = node
 
     def insert_at_location(self, data, position):
+        if position == 1:
+            return self.insert_first(data)
         node = Node(data, None)
         iteration = self.head
         count = 1
         while count <= position-2:
             iteration = iteration.next
+            count += 1
         node.next = iteration.next
         iteration.next = node
 
@@ -61,7 +64,7 @@ l = LinkedList()
 
 l.insert_first(1)
 l.insert_end(5)
-l.insert_at_location(0, 2)
+l.insert_at_location(0, 1)
 l.remove(1)
 l.print()
 
