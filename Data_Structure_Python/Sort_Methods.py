@@ -30,6 +30,44 @@ def insertion_sort(lst):
         lst[j+1] = x
     print(lst)
 
+#Merge_Sort_Start
+def merge_sorted(lst):
+    if len(lst) <= 1:
+        return
+
+    mid = len(lst)//2
+    left_lst = lst[:mid]
+    right_lst = lst[mid:]
+
+    merge_sorted(left_lst)
+    merge_sorted(right_lst)
+
+    merge_list(left_lst, right_lst, lst)
+    return lst
+
+def merge_list(left_lst, right_lst, lst):
+    i = j = k = 0
+    while i < len(left_lst) and j < len(right_lst):
+        if left_lst[i] <= right_lst[j]:
+            lst[k] = left_lst[i]
+            i += 1
+        else:
+            lst[k] = right_lst[j]
+            j += 1
+        k +=1
+
+    while i < len(left_lst):
+        lst[k] = left_lst[i]
+        i += 1
+        k += 1
+
+    while j < len(right_lst):
+        lst[k] = right_lst[j]
+        j += 1
+        k += 1
+    return lst
+#Merge_Sort_End
+
 lst = [random.randint(0, 5) for i in range(1000)]
 print(lst)
 
@@ -45,5 +83,10 @@ print("%0.10f" % (end-start))
 
 start = time()
 insertion_sort(lst)
+end = time()
+print("%0.10f" % (end-start))
+
+start = time()
+merge_sorted(lst)
 end = time()
 print("%0.10f" % (end-start))
