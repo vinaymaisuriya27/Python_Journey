@@ -23,15 +23,28 @@ def selection_sort(lst):
 def insertion_sort(lst):
     for i in range(1, len(lst)):
         x = lst[i]
-        j = i - 1
+        j = i
         while j >= 0 and x < lst[j]:
-            lst[j+1] = lst[j]
+            lst[j] = lst[j-1]
             j -= 1
-        lst[j+1] = x
+        lst[j] = x
+    print(lst)
+
+def shell_sort(lst):
+    gap = len(lst) // 2
+    while gap > 0:
+        for i in range(gap, len(lst)):
+            x = lst[i]
+            j = i
+            while j >= gap and x < lst[j - gap]:
+                lst[j] = lst[j - gap]
+                j -= gap
+            lst[j] = x
+        gap = gap // 2
     print(lst)
 
 #Merge_Sort_Start
-def merge_sorted(lst):
+def merge_sort(lst):
     if len(lst) <= 1:
         return
 
@@ -39,8 +52,8 @@ def merge_sorted(lst):
     left_lst = lst[:mid]
     right_lst = lst[mid:]
 
-    merge_sorted(left_lst)
-    merge_sorted(right_lst)
+    merge_sort(left_lst)
+    merge_sort(right_lst)
 
     merge_list(left_lst, right_lst, lst)
     return lst
@@ -68,7 +81,7 @@ def merge_list(left_lst, right_lst, lst):
     return lst
 #Merge_Sort_End
 
-lst = [random.randint(0, 5) for i in range(1000)]
+lst = [random.randint(0, 5) for i in range(10000)]
 print(lst)
 
 start = time()
@@ -87,6 +100,11 @@ end = time()
 print("%0.10f" % (end-start))
 
 start = time()
-merge_sorted(lst)
+shell_sort(lst)
+end = time()
+print("%0.10f" % (end-start))
+
+start = time()
+merge_sort(lst)
 end = time()
 print("%0.10f" % (end-start))
